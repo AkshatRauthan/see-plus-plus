@@ -8,10 +8,10 @@
 The compilation process was performed manually using GCC:
 
 ```bash
-gcc -E hello.c -o result/hello.i            # Preprocessing
-gcc -S result/hello.i -o result/hello.s     # Compilation
-gcc -c result/hello.s -o result/hello.o     # Assembly
-gcc result/hello.o -o result/hello          # Linking
+clang -E hello.c -o build/hello.i           # Preprocessing
+clang -S build/hello.i -o build/hello.s     # Compilation
+clang -c build/hello.s -o build/hello.o     # Assembly
+clang build/hello.o -o build/hello          # Linking
 ```
 
 | Stage         | Output    | Description                                                              |
@@ -26,8 +26,8 @@ gcc result/hello.o -o result/hello          # Linking
 Generated assembly using two optimization levels:
 
 ```bash
-clang -O0 -S hello.c -o result/hello_O0.s
-clang -O2 -S hello.c -o result/hello_O2.s
+clang -O0 -S hello.c -o build/hello_O0.s
+clang -O2 -S hello.c -o build/hello_O2.s
 ```
 
 - `-O0`: Disables compiler optimization.
