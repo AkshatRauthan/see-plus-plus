@@ -17,10 +17,9 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Roadmap-79_Weeks-blue?style=flat-square" alt="79-week roadmap" />
-  <img src="https://img.shields.io/badge/Stages-09-FCC624?style=flat-square" alt="9 stages" />
-  <img src="https://img.shields.io/badge/Status-Learning-brightgreen?style=flat-square" alt="Learning" />
-  <img src="https://img.shields.io/badge/Author-Akshat_Rauthan-8A2BE2?style=flat-square" alt="Akshat Rauthan" />
+  <img src="https://img.shields.io/badge/Started_On-14_Nov_2026-2EA44F?style=for-the-badge&logo=calendar&logoColor=white" alt="Started On" />
+  <img src="https://img.shields.io/badge/Progress-Stage_1-FF69B4?style=for-the-badge&logo=progress&logoColor=white" alt="Progress" />
+  <img src="https://img.shields.io/badge/Completed_On-Pending-808080?style=for-the-badge&logo=checkmarx&logoColor=white" alt="Completed On" />
 </p>
 
 ---
