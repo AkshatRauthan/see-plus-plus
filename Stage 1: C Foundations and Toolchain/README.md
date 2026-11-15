@@ -1,5 +1,5 @@
 <p align="center">
-  <strong style="font-size: 1.75em;">Stage 1: C Foundations and Toolchain</strong>
+  <br /><strong style="font-size: 30px;">Stage 1: C Foundations and Toolchain</strong>
   <br />
   This stage gives you an accurate mental model of memory and a working C toolchain, so you can write C without leaning on C++ habits.
 </p>

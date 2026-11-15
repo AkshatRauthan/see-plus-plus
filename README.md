@@ -1,6 +1,5 @@
-# ⚙️ See Plus Plus
-
 <p align="center">
+  <br /><strong style="font-size: 30px;"> See Plus Plus </strong> <br />
   <strong>Going beyond the abstractions. Understanding the machine.</strong>
   <br />
   A journey through C, C++, and Systems Programming.
