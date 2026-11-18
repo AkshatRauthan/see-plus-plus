@@ -1,13 +1,13 @@
- <p align="center"><br />
-	<strong style="font-size: 30px;">Module 1: C Toolchain and Compilation</strong> <br />
-	Exploring the C compilation pipeline, multi-file builds, Makefiles, debugging with LLDB, and building a complete command-line calculator.
-</p>
+<div align="center">
+  <h1>Module 1: C Toolchain and Compilation</h1>
+  Exploring the C compilation pipeline, multi-file builds, Makefiles, debugging with LLDB, and building a complete command-line calculator.
+</div><br />
 
-<p align="center">
+<div align="center">
   <img src="https://img.shields.io/badge/Started_On-14_Nov_2026-2EA44F?style=for-the-badge&logo=calendar&logoColor=white" alt="Started On" />
   <img src="https://img.shields.io/badge/Progress-Completed-FF69A0?style=for-the-badge&logo=progress&logoColor=white" alt="Progress" />
   <img src="https://img.shields.io/badge/Completed_On-16_Nov_2026-2976BB?style=for-the-badge&logo=checkmarx&logoColor=white" alt="Completed On" />
-</p>
+</div>
 
 ## Module Overview
 

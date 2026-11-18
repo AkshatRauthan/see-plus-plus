@@ -1,7 +1,7 @@
- <p align="center">
-  <br /><strong style="font-size: 30px;">C Debugging with LLDB</strong> <br />
+<div align="center">
+  <h1>C Debugging with LLDB</h1>
   Exploring debugging techniques using Clang and LLDB, including breakpoints, stepping, call-stack inspection, and watchpoints.
-</p>
+</div><br />
 
 ## Building the Project
 

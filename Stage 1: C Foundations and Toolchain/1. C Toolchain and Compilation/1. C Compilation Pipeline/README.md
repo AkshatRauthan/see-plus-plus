@@ -1,7 +1,7 @@
-<p align="center">
-  <strong style="font-size: 1.75em;">C Compilation Pipeline</strong> <br />
+<div align="center">
+  <h1>C Compilation Pipeline</h1>
   Exploring the C compilation toolchain by manually executing each stage of the compilation process.
-</p>
+</div><br />
 
 ## Compilation Pipeline
 

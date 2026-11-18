@@ -1,7 +1,7 @@
-<p align="center"><br />
-	<strong style="font-size: 30px;">Project: Expression Calculator in C</strong> <br />   
-	A command-line expression evaluator supporting arithmetic operations, nested brackets, infix-to-postfix conversion, stack-based evaluation, and automated testing.
-</p>
+<div align="center">
+  <h1>Project: Expression Calculator in C</h1>
+  A command-line expression evaluator supporting arithmetic operations, nested brackets, infix-to-postfix conversion, stack-based evaluation, and automated testing.
+</div><br />
 
 ## Building the Project
 

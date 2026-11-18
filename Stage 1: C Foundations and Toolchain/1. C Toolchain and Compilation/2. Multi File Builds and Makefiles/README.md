@@ -1,7 +1,7 @@
-<p align="center">
-  <strong style="font-size: 1.75em;">Multi-file C Project</strong> <br />
+<div align="center">
+  <h1>Multi-file C Project</h1>
   Exploring multi-file compilation, object files, linking, and automated builds using Clang and Make.
-</p>
+</div><br />
 
 ## Building the Project
 

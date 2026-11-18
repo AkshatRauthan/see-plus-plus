@@ -1,11 +1,11 @@
-<p align="center">
-  <br /><strong style="font-size: 30px;"> See Plus Plus </strong> <br />
+<div align="center">
+  <h1>See Plus Plus</h1>
   <strong>Going beyond the abstractions. Understanding the machine.</strong>
   <br />
   A journey through C, C++, and Systems Programming.
-</p>
+</div><br />
 
-<p align="center">
+<div align="center">
   <img src="https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white" alt="C" />
   <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++" />
   <img src="https://img.shields.io/badge/CMake-064F8C?style=for-the-badge&logo=cmake&logoColor=white" alt="CMake" />
@@ -13,13 +13,11 @@
   <img src="https://img.shields.io/badge/Systems_Programming-8A2BE2?style=for-the-badge" alt="Systems Programming" />
   <img src="https://img.shields.io/badge/Clang-262D3A?style=for-the-badge&logo=llvm&logoColor=white" alt="Clang" />
   <img src="https://img.shields.io/badge/Binary-000000?style=for-the-badge&logo=gnubash&logoColor=white" alt="Binary" />
-</p>
-
-<p align="center">
+  <br />
   <img src="https://img.shields.io/badge/Started_On-14_Nov_2026-2EA44F?style=for-the-badge&logo=calendar&logoColor=white" alt="Started On" />
   <img src="https://img.shields.io/badge/Progress-Stage_1-FF69B4?style=for-the-badge&logo=progress&logoColor=white" alt="Progress" />
   <img src="https://img.shields.io/badge/Completed_On-Pending-808080?style=for-the-badge&logo=checkmarx&logoColor=white" alt="Completed On" />
-</p>
+</div>
 
 ---
 
