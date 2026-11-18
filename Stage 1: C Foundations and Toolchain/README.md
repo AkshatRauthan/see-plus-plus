@@ -1,8 +1,7 @@
-<p align="center">
-  <br /><strong style="font-size: 30px;">Stage 1: C Foundations and Toolchain</strong>
-  <br />
+<div align="center">
+  <h1>Stage 1: C Foundations and Toolchain</h1>
   This stage gives you an accurate mental model of memory and a working C toolchain, so you can write C without leaning on C++ habits.
-</p>
+</div><br />
 
 <p align="center">
   <img src="https://img.shields.io/badge/Started_On-14_Nov_2026-2EA44F?style=for-the-badge&logo=calendar&logoColor=white" alt="Started On" />
