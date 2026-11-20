@@ -1,14 +1,14 @@
 
 #include "../include/cli.h"
 
+#include <ctype.h>
 #include <errno.h>
-#include <inttypes.h>
-#include <stdint.h>
 #include <stdlib.h>
 
 /*
  * Converts a string into a signed 64-bit integer.
  *
+ * strtoll() performs the conversion.
  * endptr detects incomplete parsing.
  * errno detects range errors.
  *
@@ -21,31 +21,22 @@ int cli_parse_i64(const char *text, int base, int64_t *result) {
         return -1;
     }
 
-    // Reset errno before conversion.
     errno = 0;
 
     char *endptr;
 
-    intmax_t value = strtoimax(text, &endptr, base);
+    long long value = strtoll(text, &endptr, base);
 
-    // Detect overflow and underflow.
     if (errno == ERANGE) {
         return -1;
     }
 
-    // Detect input that contains no valid number.
-    if (endptr == text) {
+    if (endptr == text || *endptr != '\0') {
         errno = EINVAL;
         return -1;
     }
 
-    // Reject trailing characters and incomplete conversions.
-    if (*endptr != '\0') {
-        errno = EINVAL;
-        return -1;
-    }
-
-    // Validate the destination type's range.
+    // Ensure the value fits in int64_t.
     if (value < INT64_MIN || value > INT64_MAX) {
         errno = ERANGE;
         return -1;
@@ -59,13 +50,27 @@ int cli_parse_i64(const char *text, int base, int64_t *result) {
 /*
  * Converts a string into an unsigned 64-bit integer.
  *
- * Negative input is rejected explicitly, even though
- * strtoumax() itself accepts a leading minus sign.
+ * Negative input is explicitly rejected, including input
+ * containing leading whitespace before the minus sign.
+ *
+ * strtoull() itself accepts a leading minus sign, so this
+ * validation must happen before conversion.
  */
 int cli_parse_u64(const char *text, int base, uint64_t *result) {
     if (text == NULL || result == NULL ||
-        text[0] == '\0' || text[0] == '-' ||
-        base < 0 || base == 1 || base > 36) {
+        text[0] == '\0' || base < 0 || base == 1 || base > 36) {
+        errno = EINVAL;
+        return -1;
+    }
+
+    // Reject negative values, including whitespace-prefixed input.
+    const unsigned char *start = (const unsigned char *)text;
+
+    while (isspace(*start)) {
+        start++;
+    }
+
+    if (*start == '-') {
         errno = EINVAL;
         return -1;
     }
@@ -74,7 +79,7 @@ int cli_parse_u64(const char *text, int base, uint64_t *result) {
 
     char *endptr;
 
-    uintmax_t value = strtoumax(text, &endptr, base);
+    unsigned long long value = strtoull(text, &endptr, base);
 
     if (errno == ERANGE) {
         return -1;
@@ -85,6 +90,7 @@ int cli_parse_u64(const char *text, int base, uint64_t *result) {
         return -1;
     }
 
+    // Ensure the value fits in uint64_t.
     if (value > UINT64_MAX) {
         errno = ERANGE;
         return -1;

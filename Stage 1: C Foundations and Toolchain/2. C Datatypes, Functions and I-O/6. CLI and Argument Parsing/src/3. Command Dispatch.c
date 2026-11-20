@@ -2,7 +2,7 @@
 #include "../include/cli.h"
 
 #include <ctype.h>
-#include <inttypes.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -17,6 +17,10 @@ void cli_print_version(void) {
  * Displays the application usage information.
  */
 void cli_print_usage(const char *program) {
+    if (program == NULL) {
+        program = "ccli";
+    }
+
     printf(
         "Usage:\n"
         "  %s <command> [options] [arguments]\n\n"
@@ -94,7 +98,6 @@ int cli_run_greet(int argc, char *argv[]) {
         return 1;
     }
 
-    // Apply uppercase formatting when requested.
     if (options[1].seen) {
         for (size_t i = 0; message[i] != '\0'; i++) {
             message[i] = (char)toupper((unsigned char)message[i]);
@@ -113,7 +116,12 @@ int cli_run_greet(int argc, char *argv[]) {
  *   ccli calc add LEFT RIGHT
  */
 int cli_run_calc(int argc, char *argv[]) {
-    if (argc != 3 || strcmp(argv[0], "add") != 0) {
+    if (argc != 3 ||
+        argv == NULL ||
+        argv[0] == NULL ||
+        argv[1] == NULL ||
+        argv[2] == NULL ||
+        strcmp(argv[0], "add") != 0) {
         fprintf(stderr, "Usage: ccli calc add LEFT RIGHT\n");
         return 1;
     }
@@ -141,10 +149,10 @@ int cli_run_calc(int argc, char *argv[]) {
     int64_t result = left + right;
 
     printf(
-        "%" PRId64 " + %" PRId64 " = %" PRId64 "\n",
-        left,
-        right,
-        result
+        "%lld + %lld = %lld\n",
+        (long long)left,
+        (long long)right,
+        (long long)result
     );
 
     return 0;
@@ -157,7 +165,7 @@ int cli_run_calc(int argc, char *argv[]) {
  *   ccli inspect NUMBER
  */
 int cli_run_inspect(int argc, char *argv[]) {
-    if (argc != 1) {
+    if (argc != 1 || argv == NULL || argv[0] == NULL) {
         fprintf(stderr, "Usage: ccli inspect NUMBER\n");
         return 1;
     }
@@ -169,11 +177,11 @@ int cli_run_inspect(int argc, char *argv[]) {
         return 1;
     }
 
-    // Conversion to uint64_t gives the corresponding modulo-2^64 bit pattern.
+    // Obtain the corresponding unsigned 64-bit bit pattern.
     uint64_t bits = (uint64_t)value;
 
-    printf("Decimal: %" PRId64 "\n", value);
-    printf("Hex:     0x%016" PRIX64 "\n", bits);
+    printf("Decimal: %lld\n", (long long)value);
+    printf("Hex:     0x%016llX\n", (unsigned long long)bits);
     printf("Binary:  ");
 
     // Print all 64 bits, from most significant to least significant.
@@ -195,7 +203,7 @@ int cli_run_inspect(int argc, char *argv[]) {
  * Dispatches a command to its corresponding handler.
  */
 int cli_dispatch(int argc, char *argv[]) {
-    if (argc < 1 || argv == NULL) {
+    if (argc < 1 || argv == NULL || argv[0] == NULL) {
         fprintf(stderr, "No command supplied.\n");
         return 1;
     }

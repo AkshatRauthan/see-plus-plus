@@ -1,4 +1,3 @@
-
 #ifndef CLI_H
 #define CLI_H
 
@@ -14,6 +13,7 @@
  *
  * short_name:
  *     Short option character, such as 'n'.
+ *     Use '\0' when no short alias is available.
  *
  * requires_value:
  *     true  -> option expects a value.
@@ -34,7 +34,7 @@ typedef struct {
 } CliOption;
 
 /*
- * Parses options and collects positional arguments.
+ * Parses options using the project's manual parser.
  *
  * Supports:
  *     --name value
@@ -45,6 +45,8 @@ typedef struct {
  *
  * Short-option clustering, such as -abc, is not supported.
  *
+ * argv[0] is the first argument to parse, not the program name.
+ *
  * Returns:
  *     0  on success.
  *    -1  on invalid, unknown, duplicate, or missing arguments.
@@ -52,6 +54,32 @@ typedef struct {
 int cli_parse_options(int argc, char *argv[], CliOption options[],
 					  size_t option_count, const char *positionals[],
 					  size_t positional_capacity, size_t *positional_count);
+
+/*
+ * Parses short options using POSIX getopt().
+ *
+ * Supports:
+ *     -n value
+ *     -nvalue
+ *     -u
+ *     -unvalue
+ *     -- to mark the end of options
+ *
+ * Does not support long options such as --name.
+ *
+ * argv[0] is the first argument to parse, not the program name.
+ * The implementation creates a temporary argument vector for getopt().
+ *
+ * getopt() uses process-global parser state and is not reentrant.
+ *
+ * Returns:
+ *     0  on success.
+ *    -1  on invalid, unknown, duplicate, or missing arguments.
+ */
+int cli_parse_options_getopt(int argc, char *argv[], CliOption options[],
+							 size_t option_count, const char *positionals[],
+							 size_t positional_capacity,
+							 size_t *positional_count);
 
 /*
  * Parses a signed 64-bit integer.
@@ -84,6 +112,9 @@ int cli_parse_u64(const char *text, int base, uint64_t *result);
 int cli_run_greet(int argc, char *argv[]);
 int cli_run_calc(int argc, char *argv[]);
 int cli_run_inspect(int argc, char *argv[]);
+
+/* Dispatches a command to its corresponding handler. */
+int cli_dispatch(int argc, char *argv[]);
 
 /* Displays application usage and version information. */
 void cli_print_usage(const char *program);

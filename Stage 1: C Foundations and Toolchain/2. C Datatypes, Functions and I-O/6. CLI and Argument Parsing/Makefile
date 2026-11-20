@@ -16,22 +16,28 @@ $(BUILD)/ccli: src/main.c \
                src/1.\ Argument\ Parsing.c \
                src/2.\ Numeric\ Arguments.c \
                src/3.\ Command\ Dispatch.c \
+               src/4.\ POSIX\ getopt\ Parsing.c \
                include/cli.h | $(BUILD)
 	$(CC) $(CFLAGS) -Iinclude \
 		src/main.c \
 		"src/1. Argument Parsing.c" \
 		"src/2. Numeric Arguments.c" \
 		"src/3. Command Dispatch.c" \
+		"src/4. POSIX getopt Parsing.c" \
 		-o "$(BUILD)/ccli"
 
 $(BUILD)/test_cli: tests/test_cli.c \
                    src/1.\ Argument\ Parsing.c \
                    src/2.\ Numeric\ Arguments.c \
+                   src/3.\ Command\ Dispatch.c \
+                   src/4.\ POSIX\ getopt\ Parsing.c \
                    include/cli.h | $(BUILD)
 	$(CC) $(CFLAGS) -Iinclude \
 		tests/test_cli.c \
 		"src/1. Argument Parsing.c" \
 		"src/2. Numeric Arguments.c" \
+		"src/3. Command Dispatch.c" \
+		"src/4. POSIX getopt Parsing.c" \
 		-o "$(BUILD)/test_cli"
 
 run: $(BUILD)/ccli
