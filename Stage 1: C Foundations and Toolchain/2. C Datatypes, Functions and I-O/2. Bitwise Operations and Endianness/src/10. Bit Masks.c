@@ -17,8 +17,8 @@ int main(void) {
 	 * Only the bits selected by the mask remain.
 	 */
 
-	unsigned int value = 0b11001100U;
-	unsigned int mask = 0b00001111U;
+	unsigned int value = 0xCCU;   /* 0b11001100 */
+	unsigned int mask  = 0x0FU;   /* 0b00001111 */
 
 	printf("Bit Masks\n");
 	printf("---------\n");

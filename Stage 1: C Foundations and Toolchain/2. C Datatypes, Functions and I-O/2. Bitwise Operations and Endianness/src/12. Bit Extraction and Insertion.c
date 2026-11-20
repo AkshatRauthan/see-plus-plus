@@ -64,7 +64,7 @@ int main(void) {
 	 * Extracted value = 101 = 5
 	 */
 
-	unsigned int value = 0b11010110U;
+	unsigned int value = 0xD6U;   /* 0b11010110 */
 
 	unsigned int position = 2U;
 	unsigned int width = 3U;
@@ -91,7 +91,7 @@ int main(void) {
 	 * Result:    11001110
 	 */
 
-	unsigned int new_bits = 0b011U;
+	unsigned int new_bits = 0x3U; /* 0b011 */
 
 	unsigned int modified = insertBits(value, new_bits, position, width);
 

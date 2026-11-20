@@ -1,43 +1,50 @@
-
+SHELL    := /bin/bash
 CC       := clang
-CFLAGS   := -std=c11 -Wall -Wextra -Wpedantic
+CFLAGS   := -std=c11 -g -Wall -Wextra -Wpedantic
+SANFLAGS := -fsanitize=address,undefined -fno-sanitize-recover=undefined
 
-SRC_DIR  := src
+SRC_DIR   := src
 BUILD_DIR := build
 
-# Discover all C source files.
-SOURCES := $(wildcard $(SRC_DIR)/*.c)
+.PHONY: all run one san clean list
 
-# Generate corresponding executable paths.
-TARGETS := $(patsubst $(SRC_DIR)/%.c,$(BUILD_DIR)/%,$(SOURCES))
+# Build every experiment, in numeric order.
+all:
+	@mkdir -p $(BUILD_DIR)
+	@while IFS= read -r -u 3 f; do \
+		out="$(BUILD_DIR)/$$(basename "$$f" .c)"; \
+		echo "CC  $$f"; \
+		$(CC) $(CFLAGS) "$$f" -o "$$out" || exit 1; \
+	done 3< <(printf '%s\n' $(SRC_DIR)/*.c | sort -V)
 
-.PHONY: all run clean list
-
-# Build every experiment.
-all: $(TARGETS)
-
-# Compile each source file independently.
-$(BUILD_DIR)/%: $(SRC_DIR)/%.c
-	@mkdir -p "$(BUILD_DIR)"
-	$(CC) $(CFLAGS) "$<" -o "$@"
-
-# Run every compiled experiment.
+# Build and run every experiment, in numeric order.
 run: all
-	@for program in $(TARGETS); do \
-		printf '\n===== %s =====\n' "$$(basename "$$program")"; \
-		"$$program" || exit $$?; \
-	done
+	@while IFS= read -r -u 3 f; do \
+		out="$(BUILD_DIR)/$$(basename "$$f" .c)"; \
+		printf '\n===== %s =====\n' "$$(basename "$$f" .c)"; \
+		"$$out" || exit $$?; \
+	done 3< <(printf '%s\n' $(SRC_DIR)/*.c | sort -V)
 
-# Run a specific experiment.
-# Usage: make run-one FILE="1. Binary Representations"
-run-one:
-	@$(MAKE) "$(BUILD_DIR)/$(FILE)"
-	@"$(BUILD_DIR)/$(FILE)"
+# Build and run one experiment by its number:  make one N=10
+one:
+	@test -n "$(N)" || { echo "usage: make one N=<number>"; exit 1; }
+	@mkdir -p $(BUILD_DIR)
+	@set -- $(SRC_DIR)/$(N).\ *.c; \
+	test -f "$$1" || { echo "no experiment numbered $(N)"; exit 1; }; \
+	out="$(BUILD_DIR)/$$(basename "$$1" .c)"; \
+	$(CC) $(CFLAGS) "$$1" -o "$$out" && "$$out"
 
-# Display discovered source files.
-list:
-	@printf '%s\n' $(SOURCES)
+# Same, with ASan + UBSan:  make san N=6
+san:
+	@test -n "$(N)" || { echo "usage: make san N=<number>"; exit 1; }
+	@mkdir -p $(BUILD_DIR)
+	@set -- $(SRC_DIR)/$(N).\ *.c; \
+	test -f "$$1" || { echo "no experiment numbered $(N)"; exit 1; }; \
+	out="$(BUILD_DIR)/$$(basename "$$1" .c).san"; \
+	$(CC) $(CFLAGS) $(SANFLAGS) "$$1" -o "$$out" && "$$out"
 
-# Remove generated executables.
 clean:
-	rm -rf "$(BUILD_DIR)"
+	rm -rf $(BUILD_DIR)
+
+list:
+	@printf '%s\n' $(SRC_DIR)/*.c | sort -V
