@@ -33,8 +33,12 @@ int file_close(FILE *file);
  *    0 on success.
  *   -1 on failure or insufficient buffer capacity.
  */
-int read_text_file(const char *path, char *buffer, size_t capacity,
-				   size_t *bytes_read);
+int read_text_file(
+    const char *path,
+    char *buffer,
+    size_t capacity,
+    size_t *bytes_read
+);
 
 /*
  * Creates or overwrites a text file.
@@ -64,8 +68,12 @@ int append_text_file(const char *path, const char *text);
  *    0 on success.
  *   -1 on failure or insufficient buffer capacity.
  */
-int read_binary_file(const char *path, void *buffer, size_t capacity,
-					 size_t *bytes_read);
+int read_binary_file(
+    const char *path,
+    void *buffer,
+    size_t capacity,
+    size_t *bytes_read
+);
 
 /*
  * Writes binary data to a file, replacing its contents.
@@ -74,10 +82,14 @@ int read_binary_file(const char *path, void *buffer, size_t capacity,
  *    0 on success.
  *   -1 on failure.
  */
-int write_binary_file(const char *path, const void *data, size_t size);
+int write_binary_file(
+    const char *path,
+    const void *data,
+    size_t size
+);
 
 /*
- * Copies a file byte by byte.
+ * Copies a file using a fixed-size buffer.
  *
  * The source and destination must refer to different files.
  *
@@ -86,6 +98,20 @@ int write_binary_file(const char *path, const void *data, size_t size);
  *   -1 on failure.
  */
 int copy_file(const char *source, const char *destination);
+
+/*
+ * Prints a hexadecimal and ASCII representation of a file.
+ *
+ * Reads the file in 16-byte rows and writes the formatted
+ * output to the supplied output stream.
+ *
+ * The output stream remains open; the caller owns it.
+ *
+ * Returns:
+ *    0 on success.
+ *   -1 on failure.
+ */
+int hexdump_file(const char *path, FILE *output);
 
 /*
  * Retrieves the size of a file in bytes.

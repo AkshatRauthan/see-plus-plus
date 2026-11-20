@@ -1,6 +1,6 @@
-<div align="center">
+ <div align="center">
   <h1>File Operations</h1>
-  Exploring file handling in C through text and binary file operations, file positioning, buffered I/O, and error handling.
+  Exploring file handling in C through text and binary file operations, file positioning, buffered file copying, hexadecimal inspection, and error handling.
 </div><br />
 
 ## Topics Covered
@@ -17,10 +17,17 @@
 
 **Core functions**
 
-| Function | Purpose |
-|---|---|
-| `fopen()` | Opens a file and returns a file stream. |
+| Function   | Purpose                                           |
+| ---------- | ------------------------------------------------- |
+| `fopen()`  | Opens a file and returns a file stream.           |
 | `fclose()` | Closes a file stream and flushes buffered output. |
+
+**Project functions**
+
+| Function     | Purpose                                      |
+| ------------ | -------------------------------------------- |
+| `file_open()`  | Validates arguments and opens a file.       |
+| `file_close()` | Closes an open file and checks for failure. |
 
 **Example: Opening and closing a file**
 
@@ -54,26 +61,28 @@ int main(void) {
 
 **File access modes**
 
-| Mode | Description |
-|---|---|
-| `r` | Opens an existing file for reading. |
-| `w` | Opens a file for writing; creates it or truncates existing contents. |
-| `a` | Opens a file for appending; creates it if necessary. |
-| `r+` | Opens an existing file for reading and writing. |
-| `w+` | Opens a file for reading and writing; creates or truncates it. |
-| `a+` | Opens a file for reading and appending; creates it if necessary. |
-| `rb` | Opens a binary file for reading. |
-| `wb` | Opens a binary file for writing. |
-| `ab` | Opens a binary file for appending. |
+| Mode | Description                                                          |
+| ---- | -------------------------------------------------------------------- |
+| `r`  | Opens an existing file for reading.                                  |
+| `w`  | Opens a file for writing; creates it or truncates existing contents. |
+| `a`  | Opens a file for appending; creates it if necessary.                 |
+| `r+` | Opens an existing file for reading and writing.                      |
+| `w+` | Opens a file for reading and writing; creates or truncates it.       |
+| `a+` | Opens a file for reading and appending; creates it if necessary.     |
+| `rb` | Opens a binary file for reading.                                     |
+| `wb` | Opens a binary file for writing.                                     |
+| `ab` | Opens a binary file for appending.                                   |
 
 The `+` modes allow both reading and writing. The `b` character requests binary mode, which is significant on systems that distinguish text and binary streams.
 
 **Advantages**
+
 - The standard I/O library provides a consistent interface for file operations.
 - File streams provide buffering, reducing the need for individual low-level I/O operations.
 - Access modes make the intended file operation explicit.
 
 **Disadvantages**
+
 - File streams require proper resource management.
 - Incorrect modes can unintentionally truncate existing files.
 - Buffered output means some write errors may only become visible during flushing or closing.
@@ -91,13 +100,19 @@ The `+` modes allow both reading and writing. The `b` character requests binary 
 
 **Core functions**
 
-| Function | Purpose |
-|---|---|
-| `fgetc()` | Reads one character from a file. |
-| `fgets()` | Reads a line or a specified number of characters. |
-| `fread()` | Reads a specified number of elements from a file. |
-| `feof()` | Checks whether the end-of-file indicator is set. |
+| Function   | Purpose                                           |
+| ---------- | ------------------------------------------------- |
+| `fgetc()`  | Reads one character from a file.                  |
+| `fgets()`  | Reads a line or a specified number of characters. |
+| `fread()`  | Reads a specified number of elements from a file. |
+| `feof()`   | Checks whether the end-of-file indicator is set.  |
 | `ferror()` | Checks whether a file stream has encountered an error. |
+
+**Project functions**
+
+| Function         | Purpose                                                  |
+| ---------------- | -------------------------------------------------------- |
+| `read_text_file()` | Reads an entire text file into a null-terminated buffer. |
 
 **Example: Reading a character using `fgetc()`**
 
@@ -200,12 +215,14 @@ int main(void) {
 `fread()` reads a specified number of elements. Its return value represents the number of complete elements successfully read. When the element size is `1`, this is also the number of bytes read.
 
 **Advantages**
+
 - `fgetc()` is useful for character-by-character processing.
 - `fgets()` is convenient for reading lines while respecting buffer limits.
 - `fread()` efficiently reads larger blocks of data.
 - Buffered input reduces the number of underlying I/O operations.
 
 **Disadvantages**
+
 - `fgetc()` can be inefficient when processing large amounts of data one character at a time.
 - `fgets()` may return only part of a long line when the buffer is too small.
 - `fread()` does not automatically add a null terminator.
@@ -224,13 +241,20 @@ int main(void) {
 
 **Core functions**
 
-| Function | Purpose |
-|---|---|
-| `fputc()` | Writes one character to a file. |
-| `fputs()` | Writes a null-terminated string to a file. |
-| `fprintf()` | Writes formatted output to a file. |
-| `fwrite()` | Writes blocks of data to a file. |
-| `fflush()` | Flushes buffered output to the underlying file. |
+| Function    | Purpose                                         |
+| ----------- | ----------------------------------------------- |
+| `fputc()`   | Writes one character to a file.                 |
+| `fputs()`   | Writes a null-terminated string to a file.      |
+| `fprintf()` | Writes formatted output to a file.              |
+| `fwrite()`  | Writes blocks of data to a file.                |
+| `fflush()`  | Flushes buffered output to the underlying file. |
+
+**Project functions**
+
+| Function            | Purpose                                      |
+| ------------------- | -------------------------------------------- |
+| `write_text_file()` | Creates or overwrites a text file.           |
+| `append_text_file()` | Appends text to an existing file or creates it. |
 
 **Example: Writing a string using `fputs()`**
 
@@ -294,12 +318,14 @@ int main(void) {
 `fprintf()` works like `printf()`, but writes formatted output to a specified file stream instead of standard output.
 
 **Advantages**
+
 - `fputs()` and `fprintf()` make text output straightforward.
 - `fprintf()` supports formatting numbers, strings, and other values.
 - Append mode preserves existing contents.
 - Buffered output can improve performance.
 
 **Disadvantages**
+
 - Write operations can fail because of storage, permission, or filesystem errors.
 - Write mode truncates existing files.
 - Output may remain buffered until the stream is flushed or closed.
@@ -312,18 +338,24 @@ int main(void) {
 - Writing raw bytes.
 - Handling data that contains null bytes.
 - Using `fread()` and `fwrite()`.
-- Copying files in fixed-size chunks.
 - Understanding the difference between text and binary streams.
 - Avoiding unnecessary memory allocation when processing large files.
 
 **Core functions**
 
-| Function | Purpose |
-|---|---|
-| `fread()` | Reads blocks of data from a file. |
-| `fwrite()` | Writes blocks of data to a file. |
-| `fopen()` | Opens a file using binary modes such as `rb` and `wb`. |
-| `fclose()` | Closes the file stream. |
+| Function   | Purpose                                                |
+| ---------- | ------------------------------------------------------ |
+| `fread()`  | Reads blocks of data from a file.                      |
+| `fwrite()` | Writes blocks of data to a file.                       |
+| `fopen()`  | Opens a file using binary modes such as `rb` and `wb`. |
+| `fclose()` | Closes the file stream.                                |
+
+**Project functions**
+
+| Function            | Purpose                                      |
+| ------------------- | -------------------------------------------- |
+| `read_binary_file()` | Reads binary data into a caller-provided buffer. |
+| `write_binary_file()` | Writes binary data to a file, replacing its contents. |
 
 **Example: Writing binary data**
 
@@ -391,75 +423,26 @@ int main(void) {
 }
 ```
 
-**Example: Copying a file in chunks**
-
-```c
-#include <stdio.h>
-
-int main(void) {
-    FILE *source = fopen("source.bin", "rb");
-
-    if (source == NULL) {
-        perror("source");
-        return 1;
-    }
-
-    FILE *destination = fopen("destination.bin", "wb");
-
-    if (destination == NULL) {
-        perror("destination");
-        fclose(source);
-        return 1;
-    }
-
-    unsigned char buffer[4096];
-
-    while (1) {
-        size_t count = fread(buffer, 1, sizeof(buffer), source);
-
-        if (count > 0) {
-            if (fwrite(buffer, 1, count, destination) != count) {
-                perror("fwrite");
-                break;
-            }
-        }
-
-        if (ferror(source)) {
-            perror("fread");
-            break;
-        }
-
-        if (feof(source)) {
-            break;
-        }
-    }
-
-    fclose(destination);
-    fclose(source);
-
-    return 0;
-}
-```
-
-Reading and writing in fixed-size chunks allows files to be copied without loading their entire contents into memory.
+`fread()` does not append a null terminator. The returned byte count must be used to determine how much binary data was actually read.
 
 **Text files versus binary files**
 
-| Feature | Text mode | Binary mode |
-|---|---|---|
-| Opening modes | `r`, `w`, `a` | `rb`, `wb`, `ab` |
-| Data interpretation | Text characters | Raw bytes |
-| Newline handling | May involve platform-specific translation | No text newline translation |
-| Null bytes | Not suitable for ordinary C strings | Supported |
-| Typical uses | Configuration files, logs, source code | Images, executables, serialized data |
+| Feature             | Text mode                                  | Binary mode                          |
+| ------------------- | ------------------------------------------ | ------------------------------------ |
+| Opening modes       | `r`, `w`, `a`                              | `rb`, `wb`, `ab`                     |
+| Data interpretation | Text characters                            | Raw bytes                            |
+| Newline handling    | May involve platform-specific translation | No text newline translation          |
+| Null bytes          | Not suitable for ordinary C strings       | Supported                            |
+| Typical uses        | Configuration files, logs, source code     | Images, executables, serialized data |
 
 **Advantages**
+
 - Binary operations preserve arbitrary byte sequences.
 - `fread()` and `fwrite()` support efficient block-based processing.
-- Chunk-based copying keeps memory usage predictable.
 - Binary files are suitable for structured data and non-text formats.
 
 **Disadvantages**
+
 - Binary data requires knowledge of its format before it can be interpreted.
 - Raw structures may contain padding and platform-dependent representations.
 - Integer byte order and floating-point representation can differ between systems.
@@ -477,19 +460,25 @@ Reading and writing in fixed-size chunks allows files to be copied without loadi
 
 **Core functions**
 
-| Function | Purpose |
-|---|---|
-| `fseek()` | Changes the file position indicator. |
-| `ftell()` | Retrieves the current file position. |
+| Function   | Purpose                                   |
+| ---------- | ----------------------------------------- |
+| `fseek()`  | Changes the file position indicator.      |
+| `ftell()`  | Retrieves the current file position.      |
 | `rewind()` | Moves the file position to the beginning. |
 
 **File positioning constants**
 
-| Constant | Description |
-|---|---|
+| Constant   | Description                                      |
+| ---------- | ------------------------------------------------ |
 | `SEEK_SET` | Position relative to the beginning of the file. |
-| `SEEK_CUR` | Position relative to the current position. |
-| `SEEK_END` | Position relative to the end of the file. |
+| `SEEK_CUR` | Position relative to the current position.      |
+| `SEEK_END` | Position relative to the end of the file.       |
+
+**Project functions**
+
+| Function         | Purpose                                      |
+| ---------------- | -------------------------------------------- |
+| `get_file_size()` | Retrieves a seekable file's size in bytes.  |
 
 **Example: Moving through a file**
 
@@ -580,17 +569,282 @@ int main(void) {
 This approach works for seekable files. The `long` return type of `ftell()` can limit the maximum representable file position, so large-file handling may require platform-specific APIs.
 
 **Advantages**
+
 - Supports random access without reading the entire file sequentially.
 - Makes it possible to inspect specific file regions.
 - Allows simple file-size calculations for seekable files.
 - Useful for binary formats with headers, offsets, and records.
 
 **Disadvantages**
+
 - Seeking is not supported by every stream, such as pipes.
 - `fseek()` and `ftell()` use `long`, which may not support very large files on every platform.
 - Text-stream positioning has additional restrictions; arbitrary byte offsets should generally be used with binary streams.
 
-### 6. File Error Handling
+### 6. File Copying
+
+- Understanding buffered file copying.
+- Copying files in fixed-size chunks.
+- Reading and writing binary data.
+- Avoiding loading entire files into memory.
+- Handling partial writes.
+- Detecting end-of-file conditions.
+- Detecting source read and destination write failures.
+- Checking errors during file closing.
+- Preventing accidental copying onto the same file.
+- Understanding destination truncation and partial-copy behavior.
+
+**Core functions**
+
+| Function   | Purpose                                                |
+| ---------- | ------------------------------------------------------ |
+| `fopen()`  | Opens the source and destination file streams.        |
+| `fread()`  | Reads a block of bytes from the source.                |
+| `fwrite()` | Writes a block of bytes to the destination.            |
+| `feof()`   | Detects whether the source has reached end-of-file.    |
+| `ferror()` | Checks for read or write errors on a stream.           |
+| `fclose()` | Closes streams and flushes buffered output.             |
+| `stat()`   | Retrieves file metadata for checking file identity.   |
+
+**Project functions**
+
+| Function     | Purpose                                               |
+| ------------ | ----------------------------------------------------- |
+| `copy_file()` | Copies a file using a fixed-size buffer.             |
+| `write_all()` | Internal helper that handles partial writes.         |
+
+**Example: Copying a file**
+
+```c
+#include <stdio.h>
+
+int main(void) {
+    FILE *source = fopen("source.bin", "rb");
+
+    if (source == NULL) {
+        perror("source");
+        return 1;
+    }
+
+    FILE *destination = fopen("destination.bin", "wb");
+
+    if (destination == NULL) {
+        perror("destination");
+        fclose(source);
+        return 1;
+    }
+
+    unsigned char buffer[4096];
+    int status = 0;
+
+    while (1) {
+        // Read a fixed-size block from the source.
+        size_t count = fread(buffer, 1, sizeof(buffer), source);
+
+        // Write the bytes that were successfully read.
+        if (count > 0 && fwrite(buffer, 1, count, destination) != count) {
+            perror("fwrite");
+            status = 1;
+            break;
+        }
+
+        // Detect source read errors.
+        if (ferror(source)) {
+            perror("fread");
+            status = 1;
+            break;
+        }
+
+        // Stop when the end of the source is reached.
+        if (feof(source)) {
+            break;
+        }
+    }
+
+    // Closing the destination also flushes buffered output.
+    if (fclose(destination) != 0) {
+        perror("fclose destination");
+        status = 1;
+    }
+
+    if (fclose(source) != 0) {
+        perror("fclose source");
+        status = 1;
+    }
+
+    return status;
+}
+```
+
+The project implementation uses `copy_file()` to encapsulate this process:
+
+```c
+#include <stdio.h>
+#include "../include/file_operations.h"
+
+int main(void) {
+    if (copy_file("source.bin", "destination.bin") != 0) {
+        perror("copy_file");
+        return 1;
+    }
+
+    printf("File copied successfully.\n");
+
+    return 0;
+}
+```
+
+`copy_file()` opens the source in binary read mode (`rb`) and the destination in binary write mode (`wb`). It reads data using `fread()` into a fixed-size buffer and writes it using `fwrite()`.
+
+Instead of loading the complete file into memory, the implementation processes one chunk at a time. This keeps memory usage independent of the source file's total size.
+
+**Handling partial writes**
+
+`fwrite()` returns the number of complete elements written. A write operation may write fewer bytes than requested.
+
+The implementation uses an internal helper named `write_all()` to continue writing until the complete buffer has been written or an error occurs.
+
+```c
+static int write_all(
+    FILE *file,
+    const unsigned char *buffer,
+    size_t size
+) {
+    size_t total_written = 0;
+
+    while (total_written < size) {
+        size_t written = fwrite(
+            buffer + total_written,
+            1,
+            size - total_written,
+            file
+        );
+
+        total_written += written;
+
+        if (written == 0) {
+            return -1;
+        }
+    }
+
+    return 0;
+}
+```
+
+Using a separate helper keeps the main copying loop easier to understand and prevents partially written data from being silently ignored.
+
+**Advantages**
+
+- Copies files without loading their entire contents into memory.
+- Uses predictable memory through a fixed-size buffer.
+- Binary mode preserves arbitrary byte values.
+- Buffered I/O reduces the overhead of individual low-level operations.
+- The copy implementation can be reused through a single function call.
+
+**Disadvantages**
+
+- Copying requires reading and writing the complete file.
+- Destination files may be truncated before copying begins.
+- A failure during copying can leave an incomplete destination file.
+- Checking file identity before opening does not provide atomic protection against concurrent filesystem changes.
+- Large files still require time proportional to the amount of data copied.
+
+### 7. Hexdump
+
+- Understanding hexadecimal representation of file contents.
+- Inspecting raw file bytes.
+- Displaying byte offsets.
+- Formatting bytes into fixed-size rows.
+- Converting non-printable characters into readable placeholders.
+- Displaying hexadecimal and ASCII representations together.
+- Handling incomplete final rows.
+- Working with binary data without interpreting its file format.
+
+**Core functions and macros**
+
+| Function / Macro | Purpose                                                    |
+| ---------------- | ---------------------------------------------------------- |
+| `fread()`        | Reads a block of bytes from a file.                        |
+| `fprintf()`      | Prints formatted offsets and hexadecimal byte values.     |
+| `fputs()`        | Writes fixed text and column separators.                   |
+| `fputc()`        | Writes individual ASCII characters.                        |
+| `isprint()`      | Checks whether a byte represents a printable character.   |
+| `fflush()`       | Flushes the output stream and detects buffered write errors. |
+| `PRIxMAX`        | Provides a portable format specifier for `uintmax_t` in hexadecimal. |
+
+**Project functions**
+
+| Function       | Purpose                                                         |
+| -------------- | --------------------------------------------------------------- |
+| `hexdump_file()` | Reads a file and prints its hexadecimal and ASCII representation. |
+
+**Example: Generating a hexdump**
+
+```c
+#include <stdio.h>
+#include "../include/file_operations.h"
+
+int main(void) {
+    // Print the hexdump to standard output.
+    if (hexdump_file("data.bin", stdout) != 0) {
+        perror("hexdump_file");
+        return 1;
+    }
+
+    return 0;
+}
+```
+
+`hexdump_file()` reads the file in blocks of 16 bytes and prints each block as a separate row.
+
+Each row contains three components:
+
+1. **Offset:** The position of the first byte in the current row.
+2. **Hexadecimal representation:** The individual byte values.
+3. **ASCII representation:** Printable characters corresponding to those bytes.
+
+For bytes:
+
+```text
+48 65 6C 6C 6F 00 FF
+```
+
+The output looks like:
+
+```text
+00000000  48 65 6c 6c 6f 00 ff                            |Hello..|
+```
+
+The offset begins at `00000000` and increases by 16 for each complete row.
+
+**Understanding the output**
+
+| Component | Description |
+| --------- | ----------- |
+| `00000000` | Offset of the first byte in the row. |
+| `48 65 6c` | Hexadecimal representation of individual bytes. |
+| `Hello..` | Printable ASCII characters, with non-printable bytes represented by `.`. |
+
+The hexadecimal column always reserves space for 16 bytes. When the final row contains fewer than 16 bytes, the remaining positions are padded with spaces to keep the ASCII column aligned.
+
+The implementation uses `isprint()` to determine whether each byte can be represented as a printable character. Non-printable values, including null bytes and control characters, are displayed as `.`.
+
+**Advantages**
+
+- Makes raw binary file contents easier to inspect.
+- Displays hexadecimal and ASCII representations together.
+- Fixed-size rows make offsets and byte positions easy to follow.
+- Works with arbitrary binary data, including null bytes and non-printable values.
+- Reads files in small blocks instead of loading the entire file into memory.
+
+**Disadvantages**
+
+- Hexadecimal output is less readable than the original content when inspecting text files.
+- A hexdump displays raw bytes but does not automatically interpret the underlying file format.
+- Large files can generate substantial terminal output.
+- The ASCII representation is only an approximation of how bytes should be interpreted as text.
+
+### 8. File Error Handling
 
 - Understanding file operation return values.
 - Detecting end-of-file conditions.
@@ -602,14 +856,14 @@ This approach works for seekable files. The `long` return type of `ftell()` can 
 
 **Core functions and variables**
 
-| Function / Variable | Purpose |
-|---|---|
-| `feof()` | Checks whether the end-of-file indicator is set. |
-| `ferror()` | Checks whether the stream error indicator is set. |
-| `clearerr()` | Clears the end-of-file and error indicators. |
-| `perror()` | Prints a description of the current `errno` value. |
-| `errno` | Stores an error code set by certain library operations. |
-| `EOF` | Special return value used to indicate end-of-file or certain input failures. |
+| Function / Variable | Purpose                                                          |
+| ------------------- | ---------------------------------------------------------------- |
+| `feof()`            | Checks whether the end-of-file indicator is set.                 |
+| `ferror()`          | Checks whether the stream error indicator is set.                |
+| `clearerr()`        | Clears the end-of-file and error indicators.                     |
+| `perror()`          | Prints a description of the current `errno` value.               |
+| `errno`             | Stores an error code set by certain library operations.          |
+| `EOF`               | Special return value used to indicate end-of-file or certain input failures. |
 
 **Example: Handling read errors**
 
@@ -651,14 +905,18 @@ int main(void) {
 A common mistake is assuming that `EOF` always means the file ended normally. Both an end-of-file condition and a read error can cause an input function to return `EOF`. Use `ferror()` and `feof()` to distinguish them.
 
 **Advantages**
+
 - Explicit error checking makes file operations more reliable.
 - `perror()` provides useful diagnostic messages.
 - Stream indicators help distinguish normal termination from failures.
+- Checking `fclose()` helps detect delayed write failures.
 
 **Disadvantages**
+
 - Error handling adds code to otherwise simple operations.
 - Not every library failure provides a useful `errno` value.
 - Ignoring `fclose()` errors can hide delayed write failures.
+- File operations may fail for reasons outside the program's control, such as permissions, storage limits, or filesystem errors.
 
 ## Build System
 
@@ -692,7 +950,9 @@ make clean
 │   ├── 2. Text File Reading.c
 │   ├── 3. Text File Writing.c
 │   ├── 4. Binary File Operations.c
-│   └── 5. File Positioning.c
+│   ├── 5. File Positioning.c
+│   ├── 6. File Copying.c
+│   └── 7. Hexdump.c
 ├── tests/
 │   └── test_file_operations.c
 ├── build/
@@ -704,6 +964,6 @@ make clean
 
 File handling is an essential part of systems programming. C provides a standard I/O interface through `FILE` streams and functions such as `fopen()`, `fclose()`, `fread()`, `fwrite()`, `fseek()`, and `ftell()`.
 
-Understanding the differences between text and binary files, buffered I/O, file positioning, and error handling makes it possible to work with files safely and efficiently.
+Understanding the differences between text and binary files, buffered I/O, file positioning, file copying, hexadecimal inspection, and error handling makes it possible to work with files safely and efficiently.
 
-These concepts are particularly useful in configuration parsing, logging, serialization, binary file processing, data storage, and systems programming.
+These concepts are particularly useful in configuration parsing, logging, serialization, binary file processing, data inspection, data storage, and systems programming.

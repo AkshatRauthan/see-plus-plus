@@ -18,6 +18,8 @@ test:
 		"src/3. Text File Writing.c" \
 		"src/4. Binary File Operations.c" \
 		"src/5. File Positioning.c" \
+		"src/6. File Copying.c" \
+		"src/7. Hexdump.c" \
 		-o "$(BUILD)/test_file_operations"
 
 	"$(BUILD)/test_file_operations"
@@ -27,4 +29,3 @@ san: clean
 
 clean:
 	rm -rf "$(BUILD)"
-	
