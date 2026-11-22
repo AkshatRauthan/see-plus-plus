@@ -27,13 +27,13 @@ The goal is to become comfortable reading, writing, and understanding complex C 
 
 **Core syntax**
 
-| Declaration | Meaning |
-| ----------- | ------- |
-| `int *pointer` | Pointer to an integer. |
-| `int **pointer` | Pointer to a pointer to an integer. |
-| `int pointer[5]` | Array of 5 integers. |
-| `int *pointer[5]` | Array of 5 pointers to integers. |
-| `int (*pointer)[5]` | Pointer to an array of 5 integers. |
+| Declaration           | Meaning                                                              |
+| --------------------- | -------------------------------------------------------------------- |
+| `int *pointer`        | Pointer to an integer.                                               |
+| `int **pointer`       | Pointer to a pointer to an integer.                                  |
+| `int pointer[5]`      | Array of 5 integers.                                                 |
+| `int *pointer[5]`     | Array of 5 pointers to integers.                                     |
+| `int (*pointer)[5]`   | Pointer to an array of 5 integers.                                   |
 | `int (*pointer)(int)` | Pointer to a function accepting an integer and returning an integer. |
 
 **Example**
@@ -66,12 +66,12 @@ Understanding how to read declarations from the identifier outward makes complex
 
 **Core syntax**
 
-| Declaration | Meaning |
-| ----------- | ------- |
-| `int *pointers[3]` | Array of 3 pointers to integers. |
-| `char *strings[3]` | Array of 3 pointers to characters. |
+| Declaration                | Meaning                                     |
+| -------------------------- | ------------------------------------------- |
+| `int *pointers[3]`         | Array of 3 pointers to integers.            |
+| `char *strings[3]`         | Array of 3 pointers to characters.          |
 | `const char *languages[3]` | Array of 3 pointers to constant characters. |
-| `void *pointers[3]` | Array of 3 generic object pointers. |
+| `void *pointers[3]`        | Array of 3 generic object pointers.         |
 
 **Example**
 
@@ -128,12 +128,12 @@ Modifying an object through one pointer is observable through another pointer th
 
 **Core syntax**
 
-| Declaration | Meaning |
-| ----------- | ------- |
-| `int (*pointer)[5]` | Pointer to an array of 5 integers. |
-| `int (*pointer)[3]` | Pointer to an array of 3 integers. |
+| Declaration            | Meaning                               |
+| ---------------------- | ------------------------------------- |
+| `int (*pointer)[5]`    | Pointer to an array of 5 integers.    |
+| `int (*pointer)[3]`    | Pointer to an array of 3 integers.    |
 | `int (*pointer)[3][4]` | Pointer to a 3 × 4 array of integers. |
-| `char (*pointer)[20]` | Pointer to an array of 20 characters. |
+| `char (*pointer)[20]`  | Pointer to an array of 20 characters. |
 
 **Example**
 
@@ -152,9 +152,9 @@ The parentheses are important. Without them, `int *pointer[5]` would declare an 
 
 **Array of pointers vs pointer to array**
 
-| Declaration | Meaning |
-| ----------- | ------- |
-| `int *pointer[5]` | Array containing 5 integer pointers. |
+| Declaration         | Meaning                                     |
+| ------------------- | ------------------------------------------- |
+| `int *pointer[5]`   | Array containing 5 integer pointers.        |
 | `int (*pointer)[5]` | Pointer to one array containing 5 integers. |
 
 **Pointers to multidimensional arrays**
@@ -187,12 +187,12 @@ Here, `row_pointer` points to an array of three integers. Incrementing it advanc
 
 **Core syntax**
 
-| Declaration | Meaning |
-| ----------- | ------- |
-| `int (*operation)(int, int)` | Pointer to a function accepting two integers and returning an integer. |
-| `void (*callback)(void)` | Pointer to a function accepting no arguments and returning nothing. |
-| `char *(*function)(void)` | Pointer to a function returning a character pointer. |
-| `double (*operation)(double, double)` | Pointer to a function accepting two doubles and returning a double. |
+| Declaration                           | Meaning                                                                |
+| ------------------------------------- | ---------------------------------------------------------------------- |
+| `int (*operation)(int, int)`          | Pointer to a function accepting two integers and returning an integer. |
+| `void (*callback)(void)`              | Pointer to a function accepting no arguments and returning nothing.    |
+| `char *(*function)(void)`             | Pointer to a function returning a character pointer.                   |
+| `double (*operation)(double, double)` | Pointer to a function accepting two doubles and returning a double.    |
 
 **Example**
 
@@ -247,16 +247,16 @@ Function pointers are useful for callbacks, dispatch tables, event handling, and
 
 **Complex declaration examples**
 
-| Declaration | Meaning |
-| ----------- | ------- |
-| `int **p` | Pointer to pointer to integer. |
-| `int *p[5]` | Array of 5 pointers to integers. |
-| `int (*p)[5]` | Pointer to an array of 5 integers. |
-| `int (*p)(int, int)` | Pointer to a function returning integer. |
-| `int (*p[5])(int, int)` | Array of 5 pointers to functions returning integer. |
-| `int *(*p)(int)` | Pointer to a function returning a pointer to integer. |
-| `char *(*p)(void)` | Pointer to a function returning a pointer to character. |
-| `int (**p)(int, int)` | Pointer to a function pointer. |
+| Declaration             | Meaning                                                 |
+| ----------------------- | ------------------------------------------------------- |
+| `int **p`               | Pointer to pointer to integer.                          |
+| `int *p[5]`             | Array of 5 pointers to integers.                        |
+| `int (*p)[5]`           | Pointer to an array of 5 integers.                      |
+| `int (*p)(int, int)`    | Pointer to a function returning integer.                |
+| `int (*p[5])(int, int)` | Array of 5 pointers to functions returning integer.     |
+| `int *(*p)(int)`        | Pointer to a function returning a pointer to integer.   |
+| `char *(*p)(void)`      | Pointer to a function returning a pointer to character. |
+| `int (**p)(int, int)`   | Pointer to a function pointer.                          |
 
 **Example: Array of function pointers**
 
@@ -308,20 +308,20 @@ Here, `text_function` points to a function that returns a `char *`.
 
 **Declaration exercises**
 
-| Declaration | Interpretation |
-| ----------- | -------------- |
-| `int *p` | Pointer to integer. |
-| `int **p` | Pointer to pointer to integer. |
-| `int *p[5]` | Array of 5 pointers to integer. |
-| `int (*p)[5]` | Pointer to array of 5 integers. |
-| `int (*p)(int)` | Pointer to function accepting integer and returning integer. |
-| `int *(*p)(int)` | Pointer to function returning pointer to integer. |
-| `int (*p[5])(int)` | Array of 5 pointers to functions. |
-| `char **argv` | Pointer to pointer to character. |
-| `const int *p` | Pointer to constant integer. |
-| `int *const p` | Constant pointer to integer. |
-| `int (*p)[3][4]` | Pointer to a 3 × 4 array of integers. |
-| `int (**p)(int, int)` | Pointer to a function pointer. |
+| Declaration           | Interpretation                                               |
+| --------------------- | ------------------------------------------------------------ |
+| `int *p`              | Pointer to integer.                                          |
+| `int **p`             | Pointer to pointer to integer.                               |
+| `int *p[5]`           | Array of 5 pointers to integer.                              |
+| `int (*p)[5]`         | Pointer to array of 5 integers.                              |
+| `int (*p)(int)`       | Pointer to function accepting integer and returning integer. |
+| `int *(*p)(int)`      | Pointer to function returning pointer to integer.            |
+| `int (*p[5])(int)`    | Array of 5 pointers to functions.                            |
+| `char **argv`         | Pointer to pointer to character.                             |
+| `const int *p`        | Pointer to constant integer.                                 |
+| `int *const p`        | Constant pointer to integer.                                 |
+| `int (*p)[3][4]`      | Pointer to a 3 × 4 array of integers.                        |
+| `int (**p)(int, int)` | Pointer to a function pointer.                               |
 
 **Declaration reading strategy**
 
@@ -343,29 +343,29 @@ This declaration describes an array of three pointers to functions that accept a
 
 ## Key Concepts
 
-| Concept | Description |
-| ------- | ----------- |
-| Pointer declaration | Defines a pointer variable and its pointed-to type. |
-| Array of pointers | An array whose elements store pointer values. |
-| Pointer to array | A pointer that refers to an entire array object. |
-| Function pointer | A pointer that refers to a function with a compatible type. |
-| Function pointer array | An array containing multiple function pointers. |
-| Function returning pointer | A function whose return type is a pointer. |
-| Pointer to pointer | A pointer that stores the address of another pointer. |
-| Pointer qualifiers | Qualifiers such as `const` that affect pointer or pointed-to types. |
-| Declaration precedence | Rules determining how arrays, pointers, and functions combine in declarations. |
+| Concept                    | Description                                                                    |
+| -------------------------- | ------------------------------------------------------------------------------ |
+| Pointer declaration        | Defines a pointer variable and its pointed-to type.                            |
+| Array of pointers          | An array whose elements store pointer values.                                  |
+| Pointer to array           | A pointer that refers to an entire array object.                               |
+| Function pointer           | A pointer that refers to a function with a compatible type.                    |
+| Function pointer array     | An array containing multiple function pointers.                                |
+| Function returning pointer | A function whose return type is a pointer.                                     |
+| Pointer to pointer         | A pointer that stores the address of another pointer.                          |
+| Pointer qualifiers         | Qualifiers such as `const` that affect pointer or pointed-to types.            |
+| Declaration precedence     | Rules determining how arrays, pointers, and functions combine in declarations. |
 
 ## Tools and Technologies
 
-| Tool / Technology | Purpose |
-| ----------------- | ------- |
-| C (C11) | Programming language. |
-| Clang | C compiler. |
-| GNU Make | Build automation. |
-| LLDB | Inspecting pointer values and program execution. |
-| AddressSanitizer | Detecting invalid memory accesses. |
-| UndefinedBehaviorSanitizer | Detecting undefined behavior. |
-| Linux | Development environment. |
+| Tool / Technology          | Purpose                                          |
+| -------------------------- | ------------------------------------------------ |
+| C (C11)                    | Programming language.                            |
+| Clang                      | C compiler.                                      |
+| GNU Make                   | Build automation.                                |
+| LLDB                       | Inspecting pointer values and program execution. |
+| AddressSanitizer           | Detecting invalid memory accesses.               |
+| UndefinedBehaviorSanitizer | Detecting undefined behavior.                    |
+| Linux                      | Development environment.                         |
 
 ## Build System
 
@@ -395,7 +395,6 @@ make clean
 ```
 
 Replace `N=1` with a number from `1` to `6` to select another program.
-
 
 ## Key Takeaways
 
