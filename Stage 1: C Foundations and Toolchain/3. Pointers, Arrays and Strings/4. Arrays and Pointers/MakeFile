@@ -1,0 +1,55 @@
+
+CC := clang
+
+CFLAGS := -std=c11 -Wall -Wextra -Wpedantic -Wconversion -Wshadow -g
+SANFLAGS := -fsanitize=address,undefined -fno-sanitize-recover=undefined
+
+BUILD_DIR := build
+SHELL := /bin/bash
+
+.PHONY: all build run san run-san clean
+
+all: build
+
+build:
+	@mkdir -p $(BUILD_DIR)
+	@while IFS= read -r -d '' source; do \
+		name="$${source##*/}"; \
+		name="$${name%.c}"; \
+		echo "Building: $$source"; \
+		$(CC) $(CFLAGS) "$$source" -o "$(BUILD_DIR)/$$name" || exit 1; \
+	done < <(find . -maxdepth 1 -type f -name '*.c' -print0)
+
+run:
+	@source_file=$$(find . -maxdepth 1 -type f -name "$(N).*c" -print -quit); \
+	if [[ -z "$$source_file" ]]; then \
+		echo "No source file found for N=$(N)"; \
+		exit 1; \
+	fi; \
+	name="$${source_file##*/}"; \
+	name="$${name%.c}"; \
+	$(CC) $(CFLAGS) "$$source_file" -o "$(BUILD_DIR)/$$name" && \
+	"$(BUILD_DIR)/$$name"
+
+san:
+	@mkdir -p $(BUILD_DIR)
+	@while IFS= read -r -d '' source; do \
+		name="$${source##*/}"; \
+		name="$${name%.c}"; \
+		echo "Building with sanitizers: $$source"; \
+		$(CC) $(CFLAGS) $(SANFLAGS) "$$source" -o "$(BUILD_DIR)/$$name-san" || exit 1; \
+	done < <(find . -maxdepth 1 -type f -name '*.c' -print0)
+
+run-san:
+	@source_file=$$(find . -maxdepth 1 -type f -name "$(N).*c" -print -quit); \
+	if [[ -z "$$source_file" ]]; then \
+		echo "No source file found for N=$(N)"; \
+		exit 1; \
+	fi; \
+	name="$${source_file##*/}"; \
+	name="$${name%.c}"; \
+	$(CC) $(CFLAGS) $(SANFLAGS) "$$source_file" -o "$(BUILD_DIR)/$$name-san" && \
+	"$(BUILD_DIR)/$$name-san"
+
+clean:
+	rm -rf $(BUILD_DIR)
